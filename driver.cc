@@ -47,8 +47,8 @@ bool converter(string str, unsigned int &val){
 
 void uMain::main(){
 
-	unsigned int seed = getpid();
-	string config_file = "soda.config";
+  unsigned int seed = getpid();
+  string config_file = "soda.config";
     
     // Parse command line input parameters
     T1: {
@@ -56,7 +56,7 @@ void uMain::main(){
           case 3: 
             if(!converter(string(argv[2]), seed)) break;        // check for invalid parameter
           case 2: 
-            config_file = string(argv[1]);						// check for invalid parameter
+            config_file = string(argv[1]);            // check for invalid parameter
             break;       
           default:  
             // check boundaries
@@ -84,39 +84,44 @@ void uMain::main(){
     // initializzations
     Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers );
 
-    Bank bank(cparms.numStudents);
-
-    Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
-
- 	WATCardOffice w_office(prt, bank, cparms.numCouriers );
-
- 	Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay );
-
- 	NameServer name_server(prt, cparms.numVendingMachines, cparms.numStudents );
-
- 	// BottlingPlant 
-
- 	VendingMachine* v_machine[cparms.numVendingMachines];
- 	for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
- 		v_machine[i] = new VendingMachine(prt, name_server, i, cparms.sodaCost, cparms.maxStockPerFlavour );
- 	}
-
- 	Student* students[cparms.numStudents];
- 	for (unsigned int i = 0; i < cparms.numStudents; i++){
- 		students[i] = new Student(prt, name_server, w_office, groupoff, i, cparms.maxPurchases );
- 	}
+    prt.print(Printer::Courier, 't', 0, 1);
+    prt.print(Printer::Parent, 'S');
+    prt.print(Printer::Courier, 'F');
 
 
+  //   Bank bank(cparms.numStudents);
 
- 	//wait students to finish
- 	for (unsigned int i = 0; i < cparms.numStudents; i++){
- 		delete students[i];
- 	}
+  //   Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
 
- 	//wait vending machines to finish
- 	for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
- 		delete v_machine[i];
- 	}
-}	
+  // WATCardOffice w_office(prt, bank, cparms.numCouriers );
+
+  // Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay );
+
+  // NameServer name_server(prt, cparms.numVendingMachines, cparms.numStudents );
+
+  // // BottlingPlant 
+
+  // VendingMachine* v_machine[cparms.numVendingMachines];
+  // for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
+  //  v_machine[i] = new VendingMachine(prt, name_server, i, cparms.sodaCost, cparms.maxStockPerFlavour );
+  // }
+
+  // Student* students[cparms.numStudents];
+  // for (unsigned int i = 0; i < cparms.numStudents; i++){
+  //  students[i] = new Student(prt, name_server, w_office, groupoff, i, cparms.maxPurchases );
+  // }
+
+
+
+  // //wait students to finish
+  // for (unsigned int i = 0; i < cparms.numStudents; i++){
+  //  delete students[i];
+  // }
+
+  // //wait vending machines to finish
+  // for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
+  //  delete v_machine[i];
+  // }
+} 
 
 /* END */
