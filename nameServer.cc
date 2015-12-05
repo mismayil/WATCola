@@ -20,6 +20,10 @@ VendingMachine *NameServer::getMachine( unsigned int id ){
 
 VendingMachine **NameServer::getMachineList(){
 	VendingMachine *v[1];
-	v[0] = new VendingMachine( prt, *this, 0,  6, 9 );
+	v[0] = new VendingMachine( prt, *this, 1,  6, 9 );
 	return v;
+}
+
+void NameServer::main(){
+	
 }

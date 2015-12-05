@@ -6,6 +6,8 @@
 
 #include "MPRNG.h"
 
+#define DEFAULT_BALANCE 5
+
 
 // Student constructor
 Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, Groupoff &groupoff,
@@ -46,8 +48,6 @@ void Student::main(){
 
     	for(;;){
     		try{
-
-    			 
     			_Select( g_card ){
 
     				// pay with GiftCard and reset 
@@ -70,7 +70,7 @@ void Student::main(){
 				prt.print(Printer::Student, 'L');
 
 				// the student must create a new WATCard	
-				w_card = cardOffice.create(id, 5);
+				w_card = cardOffice.create(id, DEFAULT_BALANCE);
     		}
     		catch(VendingMachine::Funds){
     			// student transfers the current vending-machine 

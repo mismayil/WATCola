@@ -51,6 +51,12 @@ Printer::~Printer() {
 
 // helper function:
 void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int value1, int value2){
+	// find index
+	int index = (int) kind;
+
+	if(lid > 0)
+		index += lid;
+
 	// Check overwrite condition
     // flush buffer if it is overwritten
     if(buffer[kind].overwrite){

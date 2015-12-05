@@ -19,7 +19,7 @@ void VendingMachine::buy( Flavours flavour, WATCard &card ){
 
 unsigned int *VendingMachine::inventory(){
 	unsigned int a[1];
-	a[0] = 5;
+	a[0] = 1;
 
 	return a;
 }
