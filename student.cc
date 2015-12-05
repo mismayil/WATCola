@@ -1,0 +1,100 @@
+#include "student.h"
+#include "printer.h"
+#include "groupoff.h"
+#include "nameServer.h"
+#include "watcardOffice.h"
+
+#include "MPRNG.h"
+
+
+// Student constructor
+Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, Groupoff &groupoff,
+             									unsigned int id, unsigned int maxPurchases ) : 
+						prt(prt), nameServer(nameServer), cardOffice(cardOffice), groupoff(groupoff),
+												id(id), maxPurchases(maxPurchases){}
+
+
+
+// periodically buys some of the favourite soda from 
+// a vending machine
+void Student::main(){
+
+	// selecting a random number of bottles to purchase
+	unsigned int bottleNum = mprnGen(1, maxPurchases);
+
+	// selecting a random favourite flavour 
+	VendingMachine::Flavours flavour = (VendingMachine::Flavours) mprnGen(3);
+
+	// print start message
+	prt.print(Printer::Student, id, 'S', flavour, bottleNum);
+
+    // creates a WATCard via the WATCardOffice
+	WATCard::FWATCard w_card = cardOffice.create(id, 5);
+
+	// creates a gift card via the Groupoff
+	WATCard::FWATCard g_card = groupoff.giftCard();
+
+
+	// obtains the location of a vending machine from the name server
+	VendingMachine *v_machine = nameServer.getMachine(id);
+
+	// print selected vending machine message
+	prt.print(Printer::Student, 'V', v_machine->getId());
+
+	for(unsigned int i = 0; i < bottleNum; i++){
+		yield(mprnGen(1,10));
+
+    	for(;;){
+    		try{
+
+    			 
+    			_Select( g_card ){
+
+    				// pay with GiftCard and reset 
+    				v_machine->buy(flavour, *g_card());
+    				g_card.reset();
+    			}
+    			or _Select( w_card ){
+
+    				// pay with WATCard
+    				v_machine->buy(flavour, *w_card());
+    			}
+
+    			// print WATCard balance message
+				prt.print(Printer::Student, 'B', w_card()->getBalance());
+
+    			break;
+    		}
+    		catch(WATCardOffice::Lost){
+    			// print WATCard lost message
+				prt.print(Printer::Student, 'L');
+
+				// the student must create a new WATCard	
+				w_card = cardOffice.create(id, 5);
+    		}
+    		catch(VendingMachine::Funds){
+    			// student transfers the current vending-machine 
+    			// soda-cost plus $5 to their WATCard
+    			unsigned int amount = v_machine->cost() + 5;
+    			cardOffice.transfer(id, amount, w_card());
+
+    		}
+    		catch(VendingMachine::Stock){
+    			// the student must obtain a new vending machine 
+    			// from the name server
+				v_machine = nameServer.getMachine(id);
+
+				// print selected vending machine message
+				prt.print(Printer::Student, 'V', v_machine->getId());
+    		}
+
+    	}
+
+	}
+
+	//print Finish message
+	prt.print(Printer::Student, 'F');
+}
+
+ 
+/* END */	

@@ -4,7 +4,7 @@
 _Monitor Bank {
 	unsigned int numStudents;
 	unsigned int *accounts;
-	uCondition *courier;
+	uCondition *couriers;
 
   public:
     Bank( unsigned int numStudents );

@@ -6,7 +6,7 @@ Bank::Bank( unsigned int numStudents ) : numStudents(numStudents){
 
 	// each student’s account initially starts with a balance of $0.
 	accounts = new unsigned int[numStudents];
-	for (int i = 0; i < numStudents; i++){
+	for (unsigned int i = 0; i < numStudents; i++){
 		accounts[i] = 0;
 	}
 
@@ -36,9 +36,11 @@ void Bank::withdraw( unsigned int id, unsigned int amount ){
 
 		// call the next courier to do withdraw,
 		// if there is one on the bench queue
-		if(!couriers.empty()){	
+		if(!couriers[id].empty()){	
 			couriers[id].signal();
 		}
 	}
 	accounts[id] -= amount;
 }
+
+/* END */

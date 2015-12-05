@@ -10,7 +10,7 @@ Parent::Parent( Printer &prt, Bank &bank, unsigned int numStudents, unsigned int
 
 
 void Parent::main(){
-	// prints start message
+	// print start message
 	prt.print(Printer::Parent, 'S');
 
 	for(;;){
@@ -37,3 +37,6 @@ void Parent::main(){
 	//print Finish message
 	prt.print(Printer::Parent, 'F');
 }
+
+
+/* END */
