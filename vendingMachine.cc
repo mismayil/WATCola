@@ -6,7 +6,7 @@ VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned in
                     														unsigned int maxStockPerFlavour) :
 								prt(prt), nameServer(nameServer), id(id), sodaCost(sodaCost), maxStockPerFlavour(maxStockPerFlavour)
 {
-    restocked = false;
+    isRestocked = false;
     sodaInventory = new unsigned int[2];
 
     for (int i = 0; i < 2; i++) {
@@ -14,7 +14,7 @@ VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned in
     }
 }
 
-~VendingMachine() {
+VendingMachine::~VendingMachine() {
     delete [] sodaInventory;
 }
 
