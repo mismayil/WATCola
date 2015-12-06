@@ -55,7 +55,7 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
 	int index = (int) kind;
 
 
-
+  cout << "TOTAL: " << total << endl;
   switch(kind){
     case Courier: 
       index = total - numCouriers + lid + 1;
