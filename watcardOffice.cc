@@ -115,6 +115,8 @@ void WATCardOffice::Courier::main(){
 		// print start funds transfer
         prt.print(Printer::Courier, 't', (int) id, j->args.student_id, j->args.amount);
 
+        cout << "Courier id " << id << endl;
+
 		// sends a request through a courier to the bank
         bank.withdraw(j->args.student_id, j->args.amount);
 
@@ -138,7 +140,11 @@ void WATCardOffice::Courier::main(){
 		// print complete funds transfer
 		prt.print(Printer::Courier, 'T', (int) id, j->args.student_id, j->args.amount);
 
+		cout << "Courier id2 " << id << endl;
+
 	}
+
+	cout << "Courier END " << endl;
 
 	// print finishing message
 	prt.print(Printer::Courier, (int) id, 'F');
