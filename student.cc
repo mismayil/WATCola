@@ -41,7 +41,7 @@ void Student::main(){
 	VendingMachine *v_machine = nameServer.getMachine(id);
 
 	// print selected vending machine message
-	prt.print(Printer::Student, 'V', v_machine->getId());
+	prt.print(Printer::Student, (int) id, 'V', v_machine->getId());
 
 	for(unsigned int i = 0; i < bottleNum; i++){
 		yield(mprnGen(1,10));
@@ -55,7 +55,7 @@ void Student::main(){
                         // v_machine->buy(flavour, *g_card());
 
                         // print GiftCard balance message
-                        // prt.print(Printer::Student, 'G', g_card()->getBalance());   
+                        // prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance());   
                         // g_card.reset();
                     // }
                     //or 
@@ -65,7 +65,7 @@ void Student::main(){
                         v_machine->buy(flavour, *w_card());
 
                         // print WATCard balance message
-                        prt.print(Printer::Student, 'B', w_card()->getBalance());               
+                        prt.print(Printer::Student, (int) id, 'B', w_card()->getBalance());               
                     }
 
                     break;
@@ -73,7 +73,7 @@ void Student::main(){
     		}
     		catch(WATCardOffice::Lost){
     			// print WATCard lost message
-				prt.print(Printer::Student, 'L');
+				prt.print(Printer::Student, (int) id, 'L');
 
 				// the student must create a new WATCard	
 				w_card = cardOffice.create(id, DEFAULT_BALANCE);
@@ -91,7 +91,7 @@ void Student::main(){
 				v_machine = nameServer.getMachine(id);
 
 				// print selected vending machine message
-				prt.print(Printer::Student, 'V', v_machine->getId());
+				prt.print(Printer::Student, (int) id, 'V', v_machine->getId());
     		}
 
     	}
@@ -102,7 +102,7 @@ void Student::main(){
     // delete g_card;
 
 	//print Finish message
-	prt.print(Printer::Student, 'F');
+	prt.print(Printer::Student, (int) id, 'F');
 }
 
  

@@ -53,10 +53,18 @@ Printer::~Printer() {
 void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int value1, int value2){
 	// find index
 	int index = (int) kind;
-  cout << index << endl;
 
-	if(lid > 0)
-		index += lid;
+  switch(kind){
+    case Courier: 
+      index = total - numCouriers + lid;
+      break;
+    case Vending:
+      index = total - numCouriers - numVendingMachines + lid;
+      break;
+    case Student:
+      index = total - numCouriers - numVendingMachines - numStudents + lid;
+      break;
+  }
 
 	// Check overwrite condition
     // flush buffer if it is overwritten

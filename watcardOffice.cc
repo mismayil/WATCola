@@ -10,7 +10,7 @@ WATCardOffice::WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers
   											prt(prt), bank(bank), numCouriers(numCouriers) {
     couriers = new Courier*[numCouriers];
     for (unsigned int i = 0; i < numCouriers; ++i){
-    	couriers[i] = new Courier( bank, *this, prt );
+    	couriers[i] = new Courier(i, bank, *this, prt );
     }
  }
 
@@ -96,14 +96,14 @@ void WATCardOffice::main(){
 
 
  // Courier task constructor
-WATCardOffice::Courier::Courier( Bank &bank, WATCardOffice &office, Printer &prt) :
+WATCardOffice::Courier::Courier(unsigned int id, Bank &bank, WATCardOffice &office, Printer &prt) :
 												bank(bank), office(office), prt(prt){}
 
 
 
 void WATCardOffice::Courier::main(){
 	// print starting message
-	prt.print(Printer::Courier, 'S');
+	prt.print(Printer::Courier, (int) id, 'S');
 
 	for(;;){
 
@@ -113,7 +113,7 @@ void WATCardOffice::Courier::main(){
 		if(j == NULL) break;
 
 		// print start funds transfer
-        prt.print(Printer::Courier, 't', j->args.student_id, j->args.amount);
+        prt.print(Printer::Courier, 't', (int) id, j->args.student_id, j->args.amount);
 
 		// sends a request through a courier to the bank
         bank.withdraw(j->args.student_id, j->args.amount);
@@ -136,12 +136,12 @@ void WATCardOffice::Courier::main(){
 		}
 
 		// print complete funds transfer
-		prt.print(Printer::Courier, 'T', j->args.student_id, j->args.amount);
+		prt.print(Printer::Courier, 'T', (int) id, j->args.student_id, j->args.amount);
 
 	}
 
 	// print finishing message
-	prt.print(Printer::Courier, 'F');
+	prt.print(Printer::Courier, (int) id, 'F');
 }
 
 /* END */
