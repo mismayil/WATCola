@@ -20,7 +20,7 @@ void Truck::main() {
     // print starting message
     prt.print(Printer::Truck, 'S');
 
-    // The truck begins by obtaining the location of 
+    // The truck begins by obtaining the location of
     // each vending machine from the name server.
     VendingMachine **machineList = nameServer.getMachineList();
     unsigned int cargo[VendingMachine::NUM_FLAVOURS];
@@ -52,7 +52,7 @@ void Truck::main() {
                     // print begin delivery to vending machine message
                     prt.print(Printer::Truck, 'd', (int) machine->getId(), (int) total);
 
-                    // The truck can only restock up to MaxStockPerFlavour 
+                    // The truck can only restock up to MaxStockPerFlavour
                     // for each flavour in each vending machine
                     for (unsigned int j = 0; j < VendingMachine::NUM_FLAVOURS; j++) {
                         unsigned int demand = maxStockPerFlavour - inventory[j];
@@ -71,20 +71,20 @@ void Truck::main() {
                     // print end delivery to vending machine message
                     prt.print(Printer::Truck, 'D');
 
-                    // ??????????????????????????
+                    // update last restocked machine
                     if (total == 0) {
                         lastMachine = (i + 1) % numVendingMachines;
                         break;
                     }
                 }
             }
-        } 
+        }
         // If the bottling plant is closing down, the truck terminates.
         catch(BottlingPlant::Shutdown) {
             break;
         }
     }
- 
+
     // print Finished message
     prt.print(Printer::Truck, 'F');
 }

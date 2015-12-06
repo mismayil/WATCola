@@ -28,18 +28,16 @@ void VendingMachine::buy(Flavours flavour, WATCard &card) {
     else {
         card.withdraw(sodaCost);
         sodaInventory[flavour]--;
-        prt.print(Printer::Vending, (int) id, 'B', (int) flavour, sodaInventory[flavour]);
+        flavourRequested = flavour;
     }
 }
 
 unsigned int *VendingMachine::inventory() {
-    prt.print(Printer::Vending, (int) id, 'r');
 	return sodaInventory;
 }
 
 void VendingMachine::restocked(){
     isRestocked = true;
-    prt.print(Printer::Vending, (int) id, 'R');
 }
 
 _Nomutex unsigned int VendingMachine::cost() {
@@ -63,11 +61,20 @@ void VendingMachine::main() {
                 _Resume Stock() _At *student;
                 ExceptionStock = false;
             }
-
+            else
             if (ExceptionFunds) {
                 _Resume Funds() _At *student;
                 ExceptionFunds = false;
             }
+            else prt.print(Printer::Vending, (int) id, 'B', (int) flavourRequested, sodaInventory[flavourRequested]);
+        }
+        or
+        _Accept(restocked) {
+            prt.print(Printer::Vending, (int) id, 'R');
+        }
+        or
+        _Accept(inventory) {
+            prt.print(Printer::Vending, (int) id, 'r');
         }
 
         unsigned int demand = 0;

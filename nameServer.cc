@@ -18,15 +18,13 @@ NameServer::~NameServer() {
 }
 
 void NameServer::VMregister(VendingMachine *vendingmachine) {
-	unsigned int id = vendingmachine->getId();
-	prt.print(Printer::NameServer, 'R', (int) id);									// DO PRINT IN MAIN
-	vendingMachines[id] = vendingmachine;
+	vid = vendingmachine->getId();
+	vendingMachines[vid] = vendingmachine;
 }
 
 VendingMachine *NameServer::getMachine(unsigned int id) {
-	prt.print(Printer::NameServer, 'N', (int) id, (int) vmstudentmap[id]);			// DO PRINT IN MAIN
-	VendingMachine *machine = vendingMachines[vmstudentmap[id]];
-	vmstudentmap[id] = (vmstudentmap[id] + 1) % numVendingMachines;					// DO IN MAIN
+	sid = id;
+	VendingMachine *machine = vendingMachines[vmstudentmap[sid]];
 	return machine;
 }
 
@@ -38,13 +36,23 @@ void NameServer::main(){
 	prt.print(Printer::NameServer, 'S');
 
 	for (unsigned int i = 0; i < numStudents; i++) {
-		vmstudentmap[i] = vendingMachines[i % numVendingMachines]->getId();
+		vmstudentmap[i] = i % numVendingMachines;
 	}
 
 	for(;;) {
-		_Accept(~NameServer) { break; }
 
-		// ADD more _Accept()'s'
+		_Accept(~NameServer) { break; }
+		or
+		_Accept(VMregister) {
+			prt.print(Printer::NameServer, 'R', (int) vid);
+		}
+		or
+		_Accept(getMachine) {
+			vmstudentmap[sid] = (vmstudentmap[sid] + 1) % numVendingMachines;
+			prt.print(Printer::NameServer, 'N', (int) sid, (int) vmstudentmap[sid]);
+		}
+		or
+		_Accept(getMachineList) {}
 	}
 
 	prt.print(Printer::NameServer, 'F');

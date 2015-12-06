@@ -30,6 +30,8 @@ _Task VendingMachine {
     void restocked();
     _Nomutex unsigned int cost();
     _Nomutex unsigned int getId();
+  private:
+	Flavours flavourRequested;
 };
 
 
