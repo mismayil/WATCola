@@ -57,7 +57,7 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
 
   // cout << "TOTAL: " << total << endl;
   switch(kind){
-    case Courier: 
+    case Courier:
       index = total - numCouriers + lid + 1;
        // cout << "Courier : ";
       break;
@@ -79,19 +79,19 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
 	// Check overwrite condition
     // flush buffer if it is overwritten
     if(buffer[index].overwrite){
-        Printer::flush(false);
+        flush(false);
     }
 
-    // Add variables to the buffer for the given voter id
+    // Add variables to the buffer for the given kind
     buffer[index].overwrite = true;
-    buffer[index].state = state;  
+    buffer[index].state = state;
     buffer[index].lid = lid;
     buffer[index].value1 = value1;
     buffer[index].value2 = value2;
 
-    // first of all, need to check whether voting is Finished
+    // first of all, need to check whether  is Finish
     if(state == 'F'){
-        Printer::flush(true);
+        flush(true);
     }
 }
 
@@ -114,18 +114,17 @@ void Printer::print( Kind kind, unsigned int lid, char state ){
 
 void Printer::print( Kind kind, unsigned int lid, char state, int value1 ){
 	helper_print(kind, state, lid, value1, -1);
-}	
+}
 
 void Printer::print( Kind kind, unsigned int lid, char state, int value1, int value2 ){
 	helper_print(kind, state, lid, value1, value2);
-}	
+}
 
 
 // print appropriate state accordin to buffer
 // and reset buffer
 void Printer::flush(bool isFinished){
- 	P1: {
-        for (unsigned int i = 0; i < total; ++i) {
+    for (unsigned int i = 0; i < total; ++i) {
        		if(buffer[i].overwrite){
   				    cout << (char)buffer[i].state;
               if(buffer[i].value1 != -1){
@@ -134,16 +133,15 @@ void Printer::flush(bool isFinished){
               		cout << ", " << buffer[i].value2;
               	}
               }
-            
+
               //reset buffer
               buffer[i].overwrite = false;
        		}
           else if(isFinished){
-              cout << "..."; 
+              cout << "...";
           }
      		cout << "\t";
      	  }
-  } 
  	cout << "\n";
  }
 

@@ -28,13 +28,20 @@ void Truck::main() {
     unsigned int lastMachine = 0;
 
     for (;;) {
-        try {
-            _Enable {
                 // truck yields a random number of times [1, 10]
                 yield(mprnGen(1, 10));
 
-                // obtain a new shipment of soda
-                plant.getShipment(cargo);
+                try {
+                    _Enable {
+                        // obtain a new shipment of soda
+                        plant.getShipment(cargo);
+                    }
+                }
+                // If the bottling plant is closing down, the truck terminates.
+                catch(BottlingPlant::Shutdown) {
+                    break;
+                }
+
                 unsigned int total = 0;
 
                 for (unsigned int i = 0; i < VendingMachine::NUM_FLAVOURS; i++) {
@@ -78,12 +85,6 @@ void Truck::main() {
                         break;
                     }
                 }
-            }
-        }
-        // If the bottling plant is closing down, the truck terminates.
-        catch(BottlingPlant::Shutdown) {
-            break;
-        }
     }
 
     // print Finished message
