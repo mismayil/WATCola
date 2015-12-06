@@ -66,7 +66,7 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
       // cout << "Vending : ";
       break;
     case Student:
-      index = total - numCouriers - numVendingMachines - numStudents + lid + 1;
+      index = total - numCouriers - numVendingMachines - numStudents + lid;
       // cout << "Student : ";
       break;
     default:
