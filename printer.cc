@@ -53,6 +53,7 @@ Printer::~Printer() {
 void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int value1, int value2){
 	// find index
 	int index = (int) kind;
+  cout << index << endl;
 
 	if(lid > 0)
 		index += lid;
