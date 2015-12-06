@@ -100,7 +100,7 @@ void Student::main(){
 
 	}
 
-    //delete w_card(); 
+    // delete w_card(); 
     // delete g_card();
 
 	//print Finish message
