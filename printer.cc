@@ -54,6 +54,8 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
 	// find index
 	int index = (int) kind;
 
+  cout << index << endl;
+
   switch(kind){
     case Courier: 
       index = total - numCouriers + lid;
@@ -63,6 +65,8 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
       break;
     case Student:
       index = total - numCouriers - numVendingMachines - numStudents + lid;
+      break;
+    default:
       break;
   }
 
