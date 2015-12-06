@@ -73,7 +73,7 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
       break;
   }
 
-    cout << index << " "  << state << " " endl;
+    cout << index << " "  << state << " " << endl;
 
 	// Check overwrite condition
     // flush buffer if it is overwritten
