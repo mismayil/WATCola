@@ -14,7 +14,7 @@ void WATCard::deposit( unsigned int amount ){
 
 // A vending machine calls withdraw when a soda is purchased.
 void WATCard::withdraw( unsigned int amount ){
-	balance += amount;
+	balance -= amount;
 }
 
 

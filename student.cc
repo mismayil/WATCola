@@ -46,7 +46,7 @@ void Student::main(){
 	for(unsigned int i = 0; i < bottleNum; i++){
 		yield(mprnGen(1,10));
 
-    	for(;;){
+    	// for(;;){
     		try{
     			_Enable{
                     _Select( g_card ){
