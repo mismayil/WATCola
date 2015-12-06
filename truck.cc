@@ -4,6 +4,7 @@
 #include "bottlingPlant.h"
 #include "vendingMachine.h"
 #include "printer.h"
+#include <iostream>
 
 // Truck Constructor
 Truck::Truck(Printer &prt, NameServer &nameServer, BottlingPlant &plant,

@@ -1,6 +1,7 @@
 #include "vendingMachine.h"
 #include "nameServer.h"
 #include "printer.h"
+#include <iostream>
 
 VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,
                     														unsigned int maxStockPerFlavour) :
@@ -54,35 +55,39 @@ void VendingMachine::main() {
     nameServer.VMregister(this);
 
     for (;;) {
-        _Accept(~VendingMachine) { break; }
-        or
-        _When(isRestocked) _Accept(buy) {
-            if (ExceptionStock) {
-                _Resume Stock() _At *student;
-                ExceptionStock = false;
+        try {
+            _Accept(~VendingMachine) { break; }
+            or
+            _When(isRestocked) _Accept(buy) {
+                if (ExceptionStock) {
+                    _Resume Stock() _At *student;
+                    ExceptionStock = false;
+                }
+                else
+                if (ExceptionFunds) {
+                    _Resume Funds() _At *student;
+                    ExceptionFunds = false;
+                }
+                else prt.print(Printer::Vending, (int) id, 'B', (int) flavourRequested, sodaInventory[flavourRequested]);
             }
-            else
-            if (ExceptionFunds) {
-                _Resume Funds() _At *student;
-                ExceptionFunds = false;
+            or
+            _Accept(inventory) {
+                prt.print(Printer::Vending, (int) id, 'r');
             }
-            else prt.print(Printer::Vending, (int) id, 'B', (int) flavourRequested, sodaInventory[flavourRequested]);
-        }
-        or
-        _Accept(restocked) {
-            prt.print(Printer::Vending, (int) id, 'R');
-        }
-        or
-        _Accept(inventory) {
-            prt.print(Printer::Vending, (int) id, 'r');
-        }
+            or
+            _Accept(restocked) {
+                prt.print(Printer::Vending, (int) id, 'R');
+            }
 
-        unsigned int demand = 0;
-        for (unsigned int i = 0; i < NUM_FLAVOURS; i++) {
-            if (sodaInventory[i] == 0) demand++;
-        }
+            unsigned int demand = 0;
+            for (unsigned int i = 0; i < NUM_FLAVOURS; i++) {
+                if (sodaInventory[i] == 0) demand++;
+            }
 
-        if (demand == NUM_FLAVOURS) isRestocked = false;
+            if (demand == NUM_FLAVOURS) isRestocked = false;
+        } catch(uMutexFailure::RendezvousFailure) {
+            std::cout << "RENDEZVOUS" << std::endl;
+        }
     }
 
     prt.print(Printer::Vending, (int) id, 'F');

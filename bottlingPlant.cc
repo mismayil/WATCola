@@ -32,7 +32,7 @@ void BottlingPlant::main() {
     prt.print(Printer::BottlingPlant, 'S');
 
     // create a truck
-    Truck *truck = new Truck(prt, nameServer, *this, numVendingMachines, maxStockPerFlavour);
+    Truck truck(prt, nameServer, *this, numVendingMachines, maxStockPerFlavour);
 
     for (;;) {
         unsigned int production = 0;
@@ -47,9 +47,8 @@ void BottlingPlant::main() {
         _Accept(~BottlingPlant) {
             closingDown = true;
             _Accept(getShipment) {
-                _Resume Shutdown() _At *truck;
+                _Resume Shutdown() _At truck;
             }
-            delete truck;
             break;
         }
         or
