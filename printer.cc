@@ -52,13 +52,13 @@ Printer::~Printer() {
 // helper function:
 void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int value1, int value2){
 	// find index
-	int index = (int) kind;
+	int index;
 
 
   // cout << "TOTAL: " << total << endl;
   switch(kind){
     case Courier: 
-      index = total - numCouriers + lid;
+      index = total - numCouriers + lid + 1;
        // cout << "Courier : ";
       break;
     case Vending:
@@ -70,6 +70,7 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
       // cout << "Student : ";
       break;
     default:
+      index = (int) kind;
       break;
   }
 
