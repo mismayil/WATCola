@@ -5,15 +5,10 @@
 
 
 Groupoff::Groupoff( Printer &prt, unsigned int numStudents, unsigned int sodaCost, unsigned int groupoffDelay ) :
-							prt(prt), numStudents(numStudents), sodaCost(sodaCost), groupoffDelay(groupoffDelay) 
-{
-   // for (int i = 0; i < numStudents; ++i){
-   // 		WATCard::FWATCard tmp;
-   // 		g_cards.push_back(tmp);	
-   // }					
-}
+							prt(prt), numStudents(numStudents), sodaCost(sodaCost), groupoffDelay(groupoffDelay) {}
 
 
+// creates empty future WATCard and returns to student
 WATCard::FWATCard Groupoff::giftCard(){
 	WATCard::FWATCard tmp_card;
 	g_cards.push_back(tmp_card);
@@ -24,6 +19,12 @@ WATCard::FWATCard Groupoff::giftCard(){
 void Groupoff::main(){
 	// print start message
 	prt.print(Printer::Groupoff, 'S');
+
+	// task begins by accepting a call from each 
+	// student to obtain a future gift-card.
+	for (unsigned int i = 0; i < numStudents; ++i){
+		_Accept( giftCard );
+	}
 
 	for(;;){
 		_Accept( ~Groupoff ){

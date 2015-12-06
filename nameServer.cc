@@ -19,14 +19,14 @@ NameServer::~NameServer() {
 
 void NameServer::VMregister(VendingMachine *vendingmachine) {
 	unsigned int id = vendingmachine->getId();
-	prt.print(Printer::NameServer, 'R', (int) id);
+	prt.print(Printer::NameServer, 'R', (int) id);									// DO PRINT IN MAIN
 	vendingMachines[id] = vendingmachine;
 }
 
 VendingMachine *NameServer::getMachine(unsigned int id) {
-	prt.print(Printer::NameServer, 'N', (int) id, (int) vmstudentmap[id]);
+	prt.print(Printer::NameServer, 'N', (int) id, (int) vmstudentmap[id]);			// DO PRINT IN MAIN
 	VendingMachine *machine = vendingMachines[vmstudentmap[id]];
-	vmstudentmap[id] = (vmstudentmap[id] + 1) % numVendingMachines;
+	vmstudentmap[id] = (vmstudentmap[id] + 1) % numVendingMachines;					// DO IN MAIN
 	return machine;
 }
 
@@ -43,6 +43,8 @@ void NameServer::main(){
 
 	for(;;) {
 		_Accept(~NameServer) { break; }
+
+		// ADD more _Accept()'s'
 	}
 
 	prt.print(Printer::NameServer, 'F');

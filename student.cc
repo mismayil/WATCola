@@ -48,22 +48,27 @@ void Student::main(){
 
     	for(;;){
     		try{
-    			_Select( g_card ){
+    			_Enable{
+                    _Select( g_card ){
 
-    				// pay with GiftCard and reset 
-    				v_machine->buy(flavour, *g_card());
-    				g_card.reset();
-    			}
-    			or _Select( w_card ){
+                        // pay with GiftCard and reset 
+                        v_machine->buy(flavour, *g_card());
 
-    				// pay with WATCard
-    				v_machine->buy(flavour, *w_card());
-    			}
+                        // print GiftCard balance message
+                        prt.print(Printer::Student, 'G', g_card()->getBalance());   
+                        g_card.reset();
+                    }
+                    or _Select( w_card ){
 
-    			// print WATCard balance message
-				prt.print(Printer::Student, 'B', w_card()->getBalance());
+                        // pay with WATCard
+                        v_machine->buy(flavour, *w_card());
 
-    			break;
+                        // print WATCard balance message
+                        prt.print(Printer::Student, 'B', w_card()->getBalance());               
+                    }
+
+                    break;
+                } 
     		}
     		catch(WATCardOffice::Lost){
     			// print WATCard lost message
@@ -91,6 +96,9 @@ void Student::main(){
     	}
 
 	}
+
+    delete w_card; 
+    delete g_card;
 
 	//print Finish message
 	prt.print(Printer::Student, 'F');

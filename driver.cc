@@ -51,48 +51,48 @@ void uMain::main(){
 	unsigned int seed = getpid();
 	string config_file = "soda.config";
 
-    // Parse command line input parameters
-    T1: {
-        switch ( argc ){
-          case 3:
-            if(!converter(string(argv[2]), seed)) break;        // check for invalid parameter
-          case 2:
-            config_file = string(argv[1]);						// check for invalid parameter
+  // Parse command line input parameters
+  T1: {
+      switch ( argc ){
+        case 3:
+          if(!converter(string(argv[2]), seed)) break;        // check for invalid parameter
+        case 2:
+          config_file = string(argv[1]);						// check for invalid parameter
+          break;
+        default:
+          // check boundaries
+          if (argc > 3    ||
+              0 >= seed   || seed > INT_MAX )
+          {
             break;
-          default:
-            // check boundaries
-            if (argc > 3    ||
-                0 >= seed   || seed > INT_MAX )
-            {
-              break;
-            }
-
-            break T1;
           }
 
-        // if error occurs, print usage message:
-        usage( argv );
-    }
+          break T1;
+        }
 
-    // initialize printer
-    mprnGen.seed(seed);
+      // if error occurs, print usage message:
+      usage( argv );
+  }
 
-    // read and parse the simulation configurations
-    ConfigParms cparms;
-    processConfigFile( config_file.c_str() , cparms );
+  // initialize printer
+  mprnGen.seed(seed);
 
-
-    // initializzations
-    Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers );
-
-    prt.print(Printer::Courier, 't', 0, 1);
-    prt.print(Printer::Parent, 'S');
-    prt.print(Printer::Courier, 'F');
+  // read and parse the simulation configurations
+  ConfigParms cparms;
+  processConfigFile( config_file.c_str() , cparms );
 
 
-    Bank bank(cparms.numStudents);
+  // initializzations
+  Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers );
 
-    Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
+  prt.print(Printer::Courier, 't', 0, 1);
+  prt.print(Printer::Parent, 'S');
+  prt.print(Printer::Courier, 'F');
+
+
+  Bank bank(cparms.numStudents);
+
+  Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
 
  	WATCardOffice w_office(prt, bank, cparms.numCouriers );
 
@@ -100,22 +100,26 @@ void uMain::main(){
 
  	NameServer name_server(prt, cparms.numVendingMachines, cparms.numStudents );
 
- 	BottlingPlant bottlingPlant(prt, name_server, cparms.numVendingMachines, cparms.maxShippedPerFlavour, cparms.maxStockPerFlavour, cparms.timeBetweenShipments);
-
  	VendingMachine* v_machine[cparms.numVendingMachines];
  	for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
  		v_machine[i] = new VendingMachine(prt, name_server, i, cparms.sodaCost, cparms.maxStockPerFlavour );
  	}
+
+  BottlingPlant plant = new bottlingPlant(prt, name_server, cparms.numVendingMachines, cparms.maxShippedPerFlavour, cparms.maxStockPerFlavour, cparms.timeBetweenShipments);
 
  	Student* students[cparms.numStudents];
  	for (unsigned int i = 0; i < cparms.numStudents; i++){
  		students[i] = new Student(prt, name_server, w_office, groupoff, i, cparms.maxPurchases );
  	}
 
+
  	//wait students to finish
  	for (unsigned int i = 0; i < cparms.numStudents; i++){
  		delete students[i];
  	}
+
+  // wait plant to shutdown, to avoid a deadlock
+  delete plant;
 
  	//wait vending machines to finish
  	for (unsigned int i = 0; i < cparms.numVendingMachines; i++){

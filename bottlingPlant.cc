@@ -4,6 +4,7 @@
 #include "truck.h"
 #include "MPRNG.h"
 
+
 BottlingPlant::BottlingPlant(Printer &prt, NameServer &nameServer, unsigned int numVendingMachines,
                             unsigned int maxShippedPerFlavour, unsigned int maxStockPerFlavour,
                             unsigned int timeBetweenShipments) :
@@ -30,6 +31,7 @@ void BottlingPlant::getShipment(unsigned int cargo[]) {
 void BottlingPlant::main() {
     prt.print(Printer::BottlingPlant, 'S');
 
+    // create a truck
     Truck *truck = new Truck(prt, nameServer, *this, numVendingMachines, maxStockPerFlavour);
 
     for (;;) {
