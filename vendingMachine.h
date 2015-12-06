@@ -6,7 +6,6 @@
 _Monitor Printer;
 _Task NameServer;
 
-
 _Task VendingMachine {
 	Printer &prt;
 	NameServer &nameServer;
@@ -15,13 +14,16 @@ _Task VendingMachine {
 	unsigned int maxStockPerFlavour;
 	unsigned int *sodaInventory;
 	bool isRestocked;
+	bool ExceptionStock;
+	bool ExceptionFunds;
+	uBaseTask *student;
     void main();
   public:
-    enum Flavours { berry, cherry };                 // flavours of soda (YOU DEFINE)
+    enum Flavours {BLACK_CHERRY, CREAM_SODA, ROOT_BEER, JAZZ_LIME, NUM_FLAVOURS}; // flavours of soda
     _Event Funds {};                       // insufficient funds
     _Event Stock {};                       // out of stock for particular flavour
-    VendingMachine( Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,
-                    unsigned int maxStockPerFlavour );
+    VendingMachine(Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,
+                    unsigned int maxStockPerFlavour);
 	~VendingMachine();
     void buy( Flavours flavour, WATCard &card );
     unsigned int *inventory();

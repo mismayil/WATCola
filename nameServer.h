@@ -9,12 +9,14 @@ _Task NameServer {
 	Printer &prt;
 	unsigned int numVendingMachines;
 	unsigned int numStudents;
-	
+	VendingMachine **vendingMachines;
+	unsigned int *vmstudentmap;
     void main();
   public:
-    NameServer( Printer &prt, unsigned int numVendingMachines, unsigned int numStudents );
-    void VMregister( VendingMachine *vendingmachine );
-    VendingMachine *getMachine( unsigned int id );
+    NameServer(Printer &prt, unsigned int numVendingMachines, unsigned int numStudents);
+	~NameServer();
+    void VMregister(VendingMachine *vendingmachine);
+    VendingMachine *getMachine(unsigned int id);
     VendingMachine **getMachineList();
 };
 
