@@ -36,9 +36,9 @@ void Bank::withdraw( unsigned int id, unsigned int amount ){
 
 		// call the next courier to do withdraw,
 		// if there is one on the bench queue
-		if(!couriers[id].empty()){	
-			couriers[id].signal();
-		}
+		// if(!couriers[id].empty()){	
+		// 	couriers[id].signal();
+		// }
 	}
 	accounts[id] -= amount;
 }
