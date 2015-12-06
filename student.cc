@@ -51,10 +51,10 @@ void Student::main(){
     			_Enable{
                     _Select( g_card ){
 
-                        pay with GiftCard and reset 
+                        // pay with GiftCard and reset 
                         v_machine->buy(flavour, *g_card());
 
-                        print GiftCard balance message
+                        // print GiftCard balance message
                         prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance());   
                         g_card.reset();
                     }
