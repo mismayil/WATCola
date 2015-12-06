@@ -101,7 +101,7 @@ void Student::main(){
 	}
 
     delete w_card(); 
-    delete g_card();
+    // delete g_card();
 
 	//print Finish message
 	prt.print(Printer::Student, (int) id, 'F');
