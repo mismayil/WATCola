@@ -59,21 +59,21 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
   switch(kind){
     case Courier: 
       index = total - numCouriers + lid + 1;
-       cout << "Courier : "  << state << " " ;
+       cout << "Courier : ";
       break;
     case Vending:
       index = total - numCouriers - numVendingMachines + lid + 1;
-      cout << "Vending : " << state<< " " ;
+      cout << "Vending : ";
       break;
     case Student:
       index = total - numCouriers - numVendingMachines - numStudents + lid + 1;
-      cout << "Student : " << state << " ";
+      cout << "Student : ";
       break;
     default:
       break;
   }
 
-    cout << index << endl;
+    cout << index << " "  << state << " " ;endl;
 
 	// Check overwrite condition
     // flush buffer if it is overwritten
