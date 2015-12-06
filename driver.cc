@@ -105,7 +105,7 @@ void uMain::main(){
  		v_machine[i] = new VendingMachine(prt, name_server, i, cparms.sodaCost, cparms.maxStockPerFlavour );
  	}
 
-  BottlingPlant plant = new bottlingPlant(prt, name_server, cparms.numVendingMachines, cparms.maxShippedPerFlavour, cparms.maxStockPerFlavour, cparms.timeBetweenShipments);
+  BottlingPlant *plant = new bottlingPlant(prt, name_server, cparms.numVendingMachines, cparms.maxShippedPerFlavour, cparms.maxStockPerFlavour, cparms.timeBetweenShipments);
 
  	Student* students[cparms.numStudents];
  	for (unsigned int i = 0; i < cparms.numStudents; i++){
