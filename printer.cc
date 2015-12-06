@@ -59,15 +59,15 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
   switch(kind){
     case Courier: 
       index = total - numCouriers + lid + 1;
-       cout << "Courier : "  << state;
+       cout << "Courier : "  << state << " " ;
       break;
     case Vending:
       index = total - numCouriers - numVendingMachines + lid + 1;
-      cout << "Vending : " << state;
+      cout << "Vending : " << state<< " " ;
       break;
     case Student:
       index = total - numCouriers - numVendingMachines - numStudents + lid + 1;
-      cout << "Student : " << state;
+      cout << "Student : " << state << " ";
       break;
     default:
       break;

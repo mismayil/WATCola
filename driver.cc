@@ -94,16 +94,16 @@ void uMain::main(){
 
   Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
 
-  WATCardOffice w_office(prt, bank, cparms.numCouriers );
-
   Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay );
 
   NameServer name_server(prt, cparms.numVendingMachines, cparms.numStudents );
 
-    VendingMachine* v_machine[cparms.numVendingMachines];
-    for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
-    	v_machine[i] = new VendingMachine(prt, name_server, i, cparms.sodaCost, cparms.maxStockPerFlavour );
-    }
+  WATCardOffice w_office(prt, bank, cparms.numCouriers );
+
+  VendingMachine* v_machine[cparms.numVendingMachines];
+  for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
+  	v_machine[i] = new VendingMachine(prt, name_server, i, cparms.sodaCost, cparms.maxStockPerFlavour );
+  }
 
   BottlingPlant *plant = new BottlingPlant(prt, name_server, cparms.numVendingMachines, cparms.maxShippedPerFlavour, cparms.maxStockPerFlavour, cparms.timeBetweenShipments);
 
