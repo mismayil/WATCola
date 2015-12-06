@@ -14,8 +14,9 @@
 #include "groupoff.h"
 #include "vendingMachine.h"
 #include "nameServer.h"
+#include "bottlingPlant.h"
 
-#define INT_MAX 2147483647 
+#define INT_MAX 2147483647
 
 MPRNG mprnGen;
 
@@ -25,8 +26,8 @@ using namespace std;
 // Prints appropriate usage error messages
 void usage( char *argv[] ) {
     cout << "Usage: " << argv[0] << " [ config-file [ Seed ] ]" << endl;
-    exit( EXIT_FAILURE );           
-} // usage 
+    exit( EXIT_FAILURE );
+} // usage
 
 
 
@@ -49,16 +50,16 @@ void uMain::main(){
 
 	unsigned int seed = getpid();
 	string config_file = "soda.config";
-    
+
     // Parse command line input parameters
     T1: {
         switch ( argc ){
-          case 3: 
+          case 3:
             if(!converter(string(argv[2]), seed)) break;        // check for invalid parameter
-          case 2: 
+          case 2:
             config_file = string(argv[1]);						// check for invalid parameter
-            break;       
-          default:  
+            break;
+          default:
             // check boundaries
             if (argc > 3    ||
                 0 >= seed   || seed > INT_MAX )
@@ -69,7 +70,7 @@ void uMain::main(){
             break T1;
           }
 
-        // if error occurs, print usage message: 
+        // if error occurs, print usage message:
         usage( argv );
     }
 
@@ -80,7 +81,7 @@ void uMain::main(){
     ConfigParms cparms;
     processConfigFile( config_file.c_str() , cparms );
 
-    
+
     // initializzations
     Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers );
 
@@ -89,39 +90,37 @@ void uMain::main(){
     prt.print(Printer::Courier, 'F');
 
 
-  //   Bank bank(cparms.numStudents);
+    Bank bank(cparms.numStudents);
 
-  //   Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
+    Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
 
- 	// WATCardOffice w_office(prt, bank, cparms.numCouriers );
+ 	WATCardOffice w_office(prt, bank, cparms.numCouriers );
 
- 	// Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay );
+ 	Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay );
 
- 	// NameServer name_server(prt, cparms.numVendingMachines, cparms.numStudents );
+ 	NameServer name_server(prt, cparms.numVendingMachines, cparms.numStudents );
 
- 	// // BottlingPlant 
+ 	BottlingPlant bottlingPlant(prt, name_server, cparms.numVendingMachines, cparms.maxShippedPerFlavour, cparms.maxStockPerFlavour, cparms.timeBetweenShipments);
 
- 	// VendingMachine* v_machine[cparms.numVendingMachines];
- 	// for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
- 	// 	v_machine[i] = new VendingMachine(prt, name_server, i, cparms.sodaCost, cparms.maxStockPerFlavour );
- 	// }
+ 	VendingMachine* v_machine[cparms.numVendingMachines];
+ 	for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
+ 		v_machine[i] = new VendingMachine(prt, name_server, i, cparms.sodaCost, cparms.maxStockPerFlavour );
+ 	}
 
- 	// Student* students[cparms.numStudents];
- 	// for (unsigned int i = 0; i < cparms.numStudents; i++){
- 	// 	students[i] = new Student(prt, name_server, w_office, groupoff, i, cparms.maxPurchases );
- 	// }
+ 	Student* students[cparms.numStudents];
+ 	for (unsigned int i = 0; i < cparms.numStudents; i++){
+ 		students[i] = new Student(prt, name_server, w_office, groupoff, i, cparms.maxPurchases );
+ 	}
 
+ 	//wait students to finish
+ 	for (unsigned int i = 0; i < cparms.numStudents; i++){
+ 		delete students[i];
+ 	}
 
-
- 	// //wait students to finish
- 	// for (unsigned int i = 0; i < cparms.numStudents; i++){
- 	// 	delete students[i];
- 	// }
-
- 	// //wait vending machines to finish
- 	// for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
- 	// 	delete v_machine[i];
- 	// }
-}	
+ 	//wait vending machines to finish
+ 	for (unsigned int i = 0; i < cparms.numVendingMachines; i++){
+ 		delete v_machine[i];
+ 	}
+}
 
 /* END */
