@@ -58,7 +58,8 @@ void Student::main(){
                         // prt.print(Printer::Student, 'G', g_card()->getBalance());   
                         // g_card.reset();
                     // }
-                    or _Select( w_card ){
+                    //or 
+                    _Select( w_card ){
 
                         // pay with WATCard
                         v_machine->buy(flavour, *w_card());
