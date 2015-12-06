@@ -93,7 +93,7 @@ void Student::main(){
 				prt.print(Printer::Student, (int) id, 'V', v_machine->getId());
     		}
 
-    	}
+    	// }
 
 	}
 
