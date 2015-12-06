@@ -54,7 +54,7 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
 	// find index
 	int index = (int) kind;
 
-  cout << index << endl;
+
 
   switch(kind){
     case Courier: 
@@ -70,6 +70,8 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
       break;
   }
 
+    cout << index << endl;
+    
 	// Check overwrite condition
     // flush buffer if it is overwritten
     if(buffer[index].overwrite){
