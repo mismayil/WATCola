@@ -46,7 +46,7 @@ void Student::main(){
 	for(unsigned int i = 0; i < bottleNum; i++){
 		yield(mprnGen(1,10));
 
-    	// for(;;){
+    	for(;;){
     		try{
     			_Enable{
                     _Select( g_card ){
@@ -57,6 +57,7 @@ void Student::main(){
                         // print GiftCard balance message
                         prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance());   
                         g_card.reset();
+                        break;
                     }
                     or _Select( w_card ){
 
@@ -64,10 +65,11 @@ void Student::main(){
                         v_machine->buy(flavour, *w_card());
 
                         // print WATCard balance message
-                        prt.print(Printer::Student, (int) id, 'B', w_card()->getBalance());               
+                        prt.print(Printer::Student, (int) id, 'B', w_card()->getBalance()); 
+                        break;              
                     }
 
-                    break;
+                    
                 } 
     		}
     		catch(WATCardOffice::Lost){
@@ -93,7 +95,7 @@ void Student::main(){
 				prt.print(Printer::Student, (int) id, 'V', v_machine->getId());
     		}
 
-    	// }
+    	}
 
 	}
 
