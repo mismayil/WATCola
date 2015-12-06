@@ -113,7 +113,7 @@ void WATCardOffice::Courier::main(){
 		if(j == NULL) break;
 
 		// print start funds transfer
-        prt.print(Printer::Courier, 't', (int) id, j->args.student_id, j->args.amount);
+        prt.print(Printer::Courier, (int) id, 't',  j->args.student_id, j->args.amount);
 
         cout << "Courier id " << id << endl;
 
@@ -138,7 +138,7 @@ void WATCardOffice::Courier::main(){
 		}
 
 		// print complete funds transfer
-		prt.print(Printer::Courier, 'T', (int) id, j->args.student_id, j->args.amount);
+		prt.print(Printer::Courier, (int) id, 'T',  j->args.student_id, j->args.amount);
 
 		cout << "Courier id2 " << id << endl;
 
