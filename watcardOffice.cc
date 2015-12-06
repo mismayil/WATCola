@@ -3,6 +3,8 @@
 #include "printer.h"
 #include "bank.h"
 
+#include <iostream>
+
 using namespace std;
 
 // WATCardOffice constructor: initialize couriers
