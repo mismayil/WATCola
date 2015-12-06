@@ -84,12 +84,7 @@ void uMain::main(){
 
   // initializzations
   Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers );
-
-  prt.print(Printer::Courier, 't', 0, 1);
-  prt.print(Printer::Parent, 'S');
-  prt.print(Printer::Courier, 'F');
-
-
+  
   Bank bank(cparms.numStudents);
 
   Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
