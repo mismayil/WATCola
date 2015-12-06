@@ -59,16 +59,16 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
 
 	// Check overwrite condition
     // flush buffer if it is overwritten
-    if(buffer[kind].overwrite){
+    if(buffer[index].overwrite){
         Printer::flush(false);
     }
 
     // Add variables to the buffer for the given voter id
-    buffer[kind].overwrite = true;
-    buffer[kind].state = state;  
-    buffer[kind].lid = lid;
-    buffer[kind].value1 = value1;
-    buffer[kind].value2 = value2;
+    buffer[index].overwrite = true;
+    buffer[index].state = state;  
+    buffer[index].lid = lid;
+    buffer[index].value1 = value1;
+    buffer[index].value2 = value2;
 
     // first of all, need to check whether voting is Finished
     if(state == 'F'){
