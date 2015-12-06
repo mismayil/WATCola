@@ -104,6 +104,7 @@ WATCardOffice::Courier::Courier(unsigned int id, Bank &bank, WATCardOffice &offi
 
 
 void WATCardOffice::Courier::main(){
+	
 	// print starting message
 	prt.print(Printer::Courier, (int) id, 'S');
 
