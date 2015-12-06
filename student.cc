@@ -49,15 +49,15 @@ void Student::main(){
     	for(;;){
     		try{
     			_Enable{
-                    _Select( g_card ){
+                    // _Select( g_card ){
 
                         // pay with GiftCard and reset 
-                        v_machine->buy(flavour, *g_card());
+                        // v_machine->buy(flavour, *g_card());
 
                         // print GiftCard balance message
-                        prt.print(Printer::Student, 'G', g_card()->getBalance());   
-                        g_card.reset();
-                    }
+                        // prt.print(Printer::Student, 'G', g_card()->getBalance());   
+                        // g_card.reset();
+                    // }
                     or _Select( w_card ){
 
                         // pay with WATCard
@@ -98,7 +98,7 @@ void Student::main(){
 	}
 
     delete w_card; 
-    delete g_card;
+    // delete g_card;
 
 	//print Finish message
 	prt.print(Printer::Student, 'F');
