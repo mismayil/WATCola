@@ -3,10 +3,6 @@
 #include "printer.h"
 #include "bank.h"
 
-#include <iostream>
-
-using namespace std;
-
 // WATCardOffice constructor: initialize couriers
 WATCardOffice::WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers ) : 
   											prt(prt), bank(bank), numCouriers(numCouriers) {
