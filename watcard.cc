@@ -24,8 +24,5 @@ unsigned int WATCard::getBalance(){
 }
 
 
-// prevent copying
-// WATCard::WATCard( const WATCard & ){}
-// WATCard &WATCard::operator=( const WATCard & ){}
 
 /* END */
