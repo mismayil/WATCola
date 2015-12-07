@@ -133,7 +133,7 @@ void WATCardOffice::Courier::main(){
 
 			// the current WATCard is deleted
 			if(j->args.w_card != NULL){
-				delete j->args.w_card;
+				// delete j->args.w_card;
 				j->args.w_card = NULL;
 			}
 		}
@@ -145,7 +145,7 @@ void WATCardOffice::Courier::main(){
 		// print complete funds transfer
 		prt.print(Printer::Courier, (int) id, 'T',  j->args.student_id, j->args.amount);
 
-		//delete j;
+		delete j;
 	}
 
 	// print finishing message
