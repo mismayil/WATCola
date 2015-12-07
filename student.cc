@@ -34,7 +34,7 @@ void Student::main(){
 	WATCard::FWATCard w_card = cardOffice.create(id, 5);
 
 	// creates a gift card via the Groupoff
-	// WATCard::FWATCard g_card = groupoff.giftCard();
+	WATCard::FWATCard g_card = groupoff.giftCard();
 
 
 	// obtains the location of a vending machine from the name server
