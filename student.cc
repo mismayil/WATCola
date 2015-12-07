@@ -45,11 +45,13 @@ void Student::main(){
 
 	for(unsigned int i = 0; i < bottleNum; i++){
 		yield(mprnGen(1,10));
-
+        bool isUsed = false;
     	for(;;){
     		try{
     			_Enable{
                     _Select( g_card ){
+
+                        isUsed = true;
 
                         // pay with GiftCard and reset
                         v_machine->buy(flavour, *g_card());
@@ -97,6 +99,14 @@ void Student::main(){
     	}
 
 	}
+
+
+    if(!isUsed){
+        _Select( g_card ) {
+            delete g_card();
+            g_card.reset();
+        }
+    }
 
     // watcard office might throw Lost exception
     try{
