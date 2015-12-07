@@ -132,10 +132,10 @@ void WATCardOffice::Courier::main(){
 			j->result.exception(new Lost);
 
 			// the current WATCard is deleted
-			//if(j->args.w_card != NULL){
-			    delete j->args.w_card;
-				// j->args.w_card = NULL;
-			// }
+			if(j->args.w_card != NULL){
+			   // delete j->args.w_card;
+				j->args.w_card = NULL;
+			}
 		}
 		else{
 			// insert new WATCard into future
