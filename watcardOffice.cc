@@ -61,8 +61,10 @@ void WATCardOffice::main(){
 
 	for(;;){
 		_Accept( ~WATCardOffice ){
-			while(!jobs.empty())
-				jobs.pop();
+			// while(!jobs.empty())
+				// jobs.pop();
+
+			jobs,push(NULL);
 
 			// notify all couriers to finish
 			for (unsigned int i = 0; i < numCouriers; i++){
