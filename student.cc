@@ -58,7 +58,6 @@ void Student::main(){
                         prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance()); 
                         delete g_card();  
                         g_card.reset();
-                        break;
                     }
                     or _Select( w_card ){
 
@@ -66,11 +65,10 @@ void Student::main(){
                         v_machine->buy(flavour, *w_card());
 
                         // print WATCard balance message
-                        prt.print(Printer::Student, (int) id, 'B', w_card()->getBalance()); 
-                        break;              
+                        prt.print(Printer::Student, (int) id, 'B', w_card()->getBalance());             
                     }
 
-                    
+                   break; 
                 } 
     		}
     		catch(WATCardOffice::Lost){
