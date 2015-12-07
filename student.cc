@@ -43,6 +43,8 @@ void Student::main(){
 	// print selected vending machine message
 	prt.print(Printer::Student, (int) id, 'V', v_machine->getId());
 
+    bool isUsed = false;
+
 	for(unsigned int i = 0; i < bottleNum; i++){
 		yield(mprnGen(1,10));
 
@@ -58,6 +60,7 @@ void Student::main(){
                         prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance()); 
                         delete g_card();  
                         g_card.reset();
+                        isUsed = true;
                     }
                     or _Select( w_card ){
 
@@ -98,8 +101,13 @@ void Student::main(){
 
 	}
 
-    if(g_card.available()) delete g_card();
-    
+
+    if(!isUsed){
+        _Select(g_card){
+            delete g_card;
+        }
+    }
+
     delete w_card(); 
 
 	//print Finish message
