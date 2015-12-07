@@ -98,6 +98,8 @@ void Student::main(){
 
 	}
 
+    if(g_card.available()) delete g_card();
+    
     delete w_card(); 
 
 	//print Finish message
