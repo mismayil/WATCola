@@ -91,6 +91,7 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
 
     // first of all, need to check whether  is Finish
     if(state == 'F'){
+        flush(false);
         flush(true);
     }
 }
