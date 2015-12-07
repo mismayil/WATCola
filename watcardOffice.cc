@@ -48,7 +48,6 @@ WATCardOffice::Job *WATCardOffice::requestWork(){
 	Job *j = NULL;
 	if(!jobs.empty()){
 		j = jobs.front();
-		delete j;
 		jobs.pop();
 	}
 	return j;
@@ -63,7 +62,6 @@ void WATCardOffice::main(){
 	for(;;){
 		_Accept( ~WATCardOffice ){
 			while(!jobs.empty())
-
 				jobs.pop();
 
 			// notify all couriers to finish
@@ -144,6 +142,7 @@ void WATCardOffice::Courier::main(){
 		// print complete funds transfer
 		prt.print(Printer::Courier, (int) id, 'T',  j->args.student_id, j->args.amount);
 
+		delete j;
 		// cout << "Courier id2 " << id << endl;
 
 	}
