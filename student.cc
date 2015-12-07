@@ -97,8 +97,12 @@ void Student::main(){
     	}
 
 	}
-
-    delete w_card(); 
+    try{
+        delete w_card(); 
+    }
+    catch(WATCardOffice::Lost){
+        
+    }
 
 	//print Finish message
 	prt.print(Printer::Student, (int) id, 'F');
