@@ -102,7 +102,6 @@ void Student::main(){
 
     delete w_card(); 
 
-
 	//print Finish message
 	prt.print(Printer::Student, (int) id, 'F');
 }

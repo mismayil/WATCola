@@ -50,7 +50,6 @@ WATCardOffice::Job *WATCardOffice::requestWork(){
 		j = jobs.front();
 		jobs.pop();
 	}
-
 	return j;
 }
 
