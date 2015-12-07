@@ -6,6 +6,9 @@
 
 #include "MPRNG.h"
 
+
+#include <iostream>
+
 #define DEFAULT_BALANCE 5
 
 
