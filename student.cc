@@ -9,6 +9,9 @@
 
 #include <iostream>
 
+
+using namespace std;
+
 #define DEFAULT_BALANCE 5
 
 
