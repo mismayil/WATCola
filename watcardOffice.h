@@ -15,6 +15,7 @@ _Task WATCardOffice {
         WATCard *w_card;
 
         Args(unsigned int s_id, unsigned int amount, WATCard *w_card) : student_id(s_id), amount(amount), w_card(w_card){}
+        ~Args() { delete w_card; }
     };
 
     struct Job {                           // marshalled arguments and return future
