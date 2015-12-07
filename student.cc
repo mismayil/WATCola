@@ -59,8 +59,7 @@ void Student::main(){
                         g_card.reset();
                         break;
                     }
-                    or 
-                    _Select( w_card ){
+                    or _Select( w_card ){
 
                         // pay with WATCard
                         v_machine->buy(flavour, *w_card());
@@ -68,7 +67,7 @@ void Student::main(){
                         // print WATCard balance message
                         prt.print(Printer::Student, (int) id, 'B', w_card()->getBalance()); 
                         break;              
-                    // }
+                    }
 
                     
                 } 
