@@ -62,8 +62,8 @@ void WATCardOffice::main(){
 
 	for(;;){
 		_Accept( ~WATCardOffice ){
-			queue <Job *> empty_jobs;
-			swap(jobs, empty_jobs);
+			while(!jobs.empty())
+				job.pop();
 
 			// notify all couriers to finish
 			for (unsigned int i = 0; i < numCouriers; i++){
@@ -104,7 +104,7 @@ WATCardOffice::Courier::Courier(unsigned int id, Bank &bank, WATCardOffice &offi
 
 
 void WATCardOffice::Courier::main(){
-	
+
 	// print starting message
 	prt.print(Printer::Courier, (int) id, 'S');
 
