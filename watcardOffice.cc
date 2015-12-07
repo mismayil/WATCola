@@ -61,19 +61,27 @@ void WATCardOffice::main(){
 
 	for(;;){
 		_Accept( ~WATCardOffice ){
-			Job *j; 
-			while(!jobs.empty()){
-				j = jobs.front();
-			 	jobs.pop();
-			 	delete j;
+			// Job *j; 
+			// while(!jobs.empty()){
+			// 	j = jobs.front();
+			//  	jobs.pop();
+			//  	delete j;
+			// }
+
+			for (unsigned int i = 0; i < numCouriers; i++){
+					jobs.push(NULL);
 			}
 
 			
 			// notify all couriers to finish
-			for (unsigned int i = 0; i < numCouriers; i++){
-				jobs.push(NULL);
+			// for (unsigned int i = 0; i < numCouriers; i++){
+			// 	_Accept( requestWork );
+			// }
+
+			while(!jobs.empty()){
 				_Accept( requestWork );
 			}
+
 			break;
 		} or _Accept( transfer ){
 
