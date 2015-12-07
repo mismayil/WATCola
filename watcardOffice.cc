@@ -68,10 +68,10 @@ void WATCardOffice::main(){
 			 	delete j;
 			}
 
-			jobs.push(NULL);
-
+			
 			// notify all couriers to finish
 			for (unsigned int i = 0; i < numCouriers; i++){
+				jobs.push(NULL);
 				_Accept( requestWork );
 			}
 			break;
