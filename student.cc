@@ -55,7 +55,8 @@ void Student::main(){
                         v_machine->buy(flavour, *g_card());
 
                         // print GiftCard balance message
-                        prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance());   
+                        prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance()); 
+                        delete g_card();  
                         g_card.reset();
                         break;
                     }
@@ -100,7 +101,7 @@ void Student::main(){
 	}
 
     delete w_card(); 
-    delete g_card();
+
 
 	//print Finish message
 	prt.print(Printer::Student, (int) id, 'F');
