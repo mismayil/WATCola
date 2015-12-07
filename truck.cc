@@ -77,7 +77,7 @@ void Truck::main() {
                     machine->restocked();
 
                     // print end delivery to vending machine message
-                    prt.print(Printer::Truck, 'D');
+                    prt.print(Printer::Truck, 'D', (int) machine->getId(), (int) total);
 
                     // update last restocked machine
                     if (total == 0) {
