@@ -6,12 +6,6 @@
 
 #include "MPRNG.h"
 
-
-#include <iostream>
-
-
-using namespace std;
-
 #define DEFAULT_BALANCE 5
 
 
@@ -61,12 +55,8 @@ void Student::main(){
                         isUsed = true;
 
                         // pay with GiftCard and reset
-                        try{
-                            v_machine->buy(flavour, *g_card());
-                        }   
-                        catch(VendingMachine::Funds){
-                            cout << "GIFTCARD" << endl;
-                        }
+                        v_machine->buy(flavour, *g_card());
+
                         // print GiftCard balance message
                         prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance());
                         delete g_card();
