@@ -43,8 +43,7 @@ void Student::main(){
 	// print selected vending machine message
 	prt.print(Printer::Student, (int) id, 'V', v_machine->getId());
 
-        bool isUsed = false;
-        
+    bool isUsed = false;
 	for(unsigned int i = 0; i < bottleNum; i++){
 		yield(mprnGen(1,10));
 
@@ -52,7 +51,7 @@ void Student::main(){
     		try{
     			_Enable{
                     _Select( g_card ){
-
+                        // gift card is used
                         isUsed = true;
 
                         // pay with GiftCard and reset
@@ -83,6 +82,8 @@ void Student::main(){
 				w_card = cardOffice.create(id, DEFAULT_BALANCE);
     		}
     		catch(VendingMachine::Funds){
+
+                if (isUsed) cout << "GIFTCARD" << endl;
     			// student transfers the current vending-machine
     			// soda-cost plus $5 to their WATCard
     			unsigned int amount = v_machine->cost() + 5;
@@ -102,7 +103,7 @@ void Student::main(){
 
 	}
 
-
+    // prevent memory leak, wait giftcard to be delivered
     if(!isUsed){
         _Select( g_card ) {
             delete g_card();
