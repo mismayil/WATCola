@@ -145,7 +145,7 @@ void WATCardOffice::Courier::main(){
 		// print complete funds transfer
 		prt.print(Printer::Courier, (int) id, 'T',  j->args.student_id, j->args.amount);
 
-		delete j;
+		//delete j;
 	}
 
 	// print finishing message
