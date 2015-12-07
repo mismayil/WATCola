@@ -17,11 +17,15 @@ NameServer::~NameServer() {
 	delete [] vmstudentmap;
 }
 
+// Vending machines call VMregister to register themselves
+// so students can subsequently locate them. 
 void NameServer::VMregister(VendingMachine *vendingmachine) {
 	vid = vendingmachine->getId();
 	vendingMachines[vid] = vendingmachine;
 }
 
+
+// A student calls getMachine to find a vending machine,
 VendingMachine *NameServer::getMachine(unsigned int id) {
 	sid = id;                               // remember student id for administrator
 	VendingMachine *machine = vendingMachines[vmstudentmap[sid]]; // get machine
