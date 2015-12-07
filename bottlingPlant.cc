@@ -22,6 +22,7 @@ BottlingPlant::~BottlingPlant() {
 
 void BottlingPlant::getShipment(unsigned int cargo[]) {
     if (!closingDown) {        // if bottlingPlant is not closing down, load the cargo
+        truck_bench.wait();
         for (unsigned int i = 0; i < VendingMachine::NUM_FLAVOURS; i++) {
             cargo[i] = shipment[i];
         }
@@ -50,6 +51,8 @@ void BottlingPlant::main() {
             closingDown = true;   // bottlingPlant closed down
             _Accept(getShipment) {   // wait for truck to get last shipment
                 _Resume Shutdown() _At truck;    // inform the truck
+                truck_bench.signal();
+
             }
             break;
         }

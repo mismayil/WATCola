@@ -13,6 +13,7 @@ _Task BottlingPlant {
     unsigned int timeBetweenShipments;
     unsigned int *shipment;
     bool closingDown;
+    uCondition truck_bench;
     void main();
 public:
     _Event Shutdown {}; // shutdown plant
