@@ -23,8 +23,8 @@ void NameServer::VMregister(VendingMachine *vendingmachine) {
 }
 
 VendingMachine *NameServer::getMachine(unsigned int id) {
-	sid = id;
-	VendingMachine *machine = vendingMachines[vmstudentmap[sid]];
+	sid = id;                               // remember student id for administrator
+	VendingMachine *machine = vendingMachines[vmstudentmap[sid]]; // get machine
 	return machine;
 }
 
@@ -33,8 +33,10 @@ VendingMachine **NameServer::getMachineList() {
 }
 
 void NameServer::main(){
+	// print start message
 	prt.print(Printer::NameServer, 'S');
 
+	// assign vending machines to students
 	for (unsigned int i = 0; i < numStudents; i++) {
 		vmstudentmap[i] = i % numVendingMachines;
 	}
@@ -44,16 +46,20 @@ void NameServer::main(){
 		_Accept(~NameServer) { break; }
 		or
 		_Accept(VMregister) {
+			// print machine registering message
 			prt.print(Printer::NameServer, 'R', (int) vid);
 		}
 		or
 		_Accept(getMachine) {
+			// cycle through vendingmachines
 			vmstudentmap[sid] = (vmstudentmap[sid] + 1) % numVendingMachines;
+			// print new vending machine request message
 			prt.print(Printer::NameServer, 'N', (int) sid, (int) vmstudentmap[sid]);
 		}
 		or
 		_Accept(getMachineList) {}
 	}
 
+	// print finish message
 	prt.print(Printer::NameServer, 'F');
 }

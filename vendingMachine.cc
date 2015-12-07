@@ -23,13 +23,13 @@ VendingMachine::~VendingMachine() {
 }
 
 void VendingMachine::buy(Flavours flavour, WATCard &card) {
-    student = &uThisTask();
-    if (sodaInventory[flavour] == 0) ExceptionStock = true;
-    else if (card.getBalance() < sodaCost) ExceptionFunds = true;
-    else {
+    student = &uThisTask();                        // remember the student for administrator
+    if (sodaInventory[flavour] == 0) ExceptionStock = true;  // stock exception occurred
+    else if (card.getBalance() < sodaCost) ExceptionFunds = true;  // funds exception occurred
+    else {                            // no exception, provide the bottle and debit the watcard
         card.withdraw(sodaCost);
         sodaInventory[flavour]--;
-        flavourRequested = flavour;
+        flavourRequested = flavour;         // remember the flavour for administrator
     }
 }
 
@@ -50,41 +50,47 @@ _Nomutex unsigned int VendingMachine::getId() {
 }
 
 void VendingMachine::main() {
+    // print start message
     prt.print(Printer::Vending, (int) id, 'S', (int) sodaCost);
 
-    nameServer.VMregister(this);
+    nameServer.VMregister(this);   // register with nameServer
 
     for (;;) {
+        // check if soda inventory needs restocking
         unsigned int demand = 0;
         for (unsigned int i = 0; i < NUM_FLAVOURS; i++) {
             if (sodaInventory[i] == 0) demand++;
         }
 
-        if (demand == NUM_FLAVOURS) isRestocked = false;
+        if (demand == NUM_FLAVOURS) isRestocked = false; // restocking needed
 
         _Accept(~VendingMachine) { break; }
         or
-        _When(isRestocked) _Accept(buy) {
-            if (ExceptionStock) {
-                _Resume Stock() _At *student;
+        _When(isRestocked) _Accept(buy) {      // when machine is not restocked, buy can be called
+            if (ExceptionStock) {          // stock exception happened
+                _Resume Stock() _At *student;  // throw stock exception at student
                 ExceptionStock = false;
             }
             else
-            if (ExceptionFunds) {
-                _Resume Funds() _At *student;
+            if (ExceptionFunds) {          // funds exception happened
+                _Resume Funds() _At *student;   // throw funds exception at student
                 ExceptionFunds = false;
             }
+            // print student bought soda message
             else prt.print(Printer::Vending, (int) id, 'B', (int) flavourRequested, sodaInventory[flavourRequested]);
         }
         or
         _Accept(inventory) {
+            // print start reloading by truck message
             prt.print(Printer::Vending, (int) id, 'r');
         }
         or
         _Accept(restocked) {
+            // print complete reloading by truck message
             prt.print(Printer::Vending, (int) id, 'R');
         }
     }
 
+    // print finish message
     prt.print(Printer::Vending, (int) id, 'F');
 }

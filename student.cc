@@ -11,20 +11,20 @@
 
 // Student constructor
 Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, Groupoff &groupoff,
-             									unsigned int id, unsigned int maxPurchases ) : 
+             									unsigned int id, unsigned int maxPurchases ) :
 						prt(prt), nameServer(nameServer), cardOffice(cardOffice), groupoff(groupoff),
 												id(id), maxPurchases(maxPurchases){}
 
 
 
-// periodically buys some of the favourite soda from 
+// periodically buys some of the favourite soda from
 // a vending machine
 void Student::main(){
 
 	// selecting a random number of bottles to purchase
 	unsigned int bottleNum = mprnGen(1, maxPurchases);
 
-	// selecting a random favourite flavour 
+	// selecting a random favourite flavour
 	VendingMachine::Flavours flavour = (VendingMachine::Flavours) mprnGen(3);
 
 	// print start message
@@ -51,12 +51,12 @@ void Student::main(){
     			_Enable{
                     _Select( g_card ){
 
-                        // pay with GiftCard and reset 
+                        // pay with GiftCard and reset
                         v_machine->buy(flavour, *g_card());
 
                         // print GiftCard balance message
-                        prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance()); 
-                        delete g_card();  
+                        prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance());
+                        delete g_card();
                         g_card.reset();
                     }
                     or _Select( w_card ){
@@ -65,28 +65,28 @@ void Student::main(){
                         v_machine->buy(flavour, *w_card());
 
                         // print WATCard balance message
-                        prt.print(Printer::Student, (int) id, 'B', w_card()->getBalance());             
+                        prt.print(Printer::Student, (int) id, 'B', w_card()->getBalance());
                     }
 
-                   break; 
-                } 
+                   break;
+                }
     		}
     		catch(WATCardOffice::Lost){
     			// print WATCard lost message
 				prt.print(Printer::Student, (int) id, 'L');
 
-				// the student must create a new WATCard	
+				// the student must create a new WATCard
 				w_card = cardOffice.create(id, DEFAULT_BALANCE);
     		}
     		catch(VendingMachine::Funds){
-    			// student transfers the current vending-machine 
+    			// student transfers the current vending-machine
     			// soda-cost plus $5 to their WATCard
     			unsigned int amount = v_machine->cost() + 5;
     			cardOffice.transfer(id, amount, w_card());
 
     		}
     		catch(VendingMachine::Stock){
-    			// the student must obtain a new vending machine 
+    			// the student must obtain a new vending machine
     			// from the name server
 				v_machine = nameServer.getMachine(id);
 
@@ -98,11 +98,11 @@ void Student::main(){
 
 	}
 
-    delete w_card(); 
+    delete w_card();
 
 	//print Finish message
 	prt.print(Printer::Student, (int) id, 'F');
 }
 
- 
-/* END */	
+
+/* END */

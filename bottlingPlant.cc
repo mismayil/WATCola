@@ -21,7 +21,7 @@ BottlingPlant::~BottlingPlant() {
 }
 
 void BottlingPlant::getShipment(unsigned int cargo[]) {
-    if (!closingDown) {
+    if (!closingDown) {        // if bottlingPlant is not closing down, load the cargo
         for (unsigned int i = 0; i < VendingMachine::NUM_FLAVOURS; i++) {
             cargo[i] = shipment[i];
         }
@@ -35,6 +35,7 @@ void BottlingPlant::main() {
     Truck truck(prt, nameServer, *this, numVendingMachines, maxStockPerFlavour);
 
     for (;;) {
+        // make production run
         unsigned int production = 0;
         for (unsigned int i = 0; i < VendingMachine::NUM_FLAVOURS; i++) {
             unsigned int produce = mprnGen(0, maxShippedPerFlavour);
@@ -42,21 +43,24 @@ void BottlingPlant::main() {
             production += produce;
         }
 
+        // print production run message
         prt.print(Printer::BottlingPlant, 'G', (int) production);
 
         _Accept(~BottlingPlant) {
-            closingDown = true;
-            _Accept(getShipment) {
-                _Resume Shutdown() _At truck;
+            closingDown = true;   // bottlingPlant closed down
+            _Accept(getShipment) {   // wait for truck to get last shipment
+                _Resume Shutdown() _At truck;    // inform the truck
             }
             break;
         }
         or
         _Accept(getShipment) {
+            // print shipment picked up message
             prt.print(Printer::BottlingPlant, 'P');
-            yield(timeBetweenShipments);
+            yield(timeBetweenShipments);   // yield between shipments
         }
     }
 
+    // print finish message
     prt.print(Printer::BottlingPlant, 'F');
 }

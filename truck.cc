@@ -15,7 +15,6 @@ Truck::Truck(Printer &prt, NameServer &nameServer, BottlingPlant &plant,
 // Truck Destructor
 Truck::~Truck() {}
 
-
 void Truck::main() {
 
     // print starting message
