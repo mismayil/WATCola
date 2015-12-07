@@ -51,7 +51,7 @@ void BottlingPlant::main() {
             closingDown = true;   // bottlingPlant closed down
             _Accept(getShipment) {   // wait for truck to get last shipment
                 _Resume Shutdown() _At truck;    // inform the truck
-                truck_bench.signal();
+                truck_bench.signalBlock();
 
             }
             break;
