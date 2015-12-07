@@ -51,8 +51,8 @@ void NameServer::main(){
 			vmstudentmap[sid] = (vmstudentmap[sid] + 1) % numVendingMachines;
 			prt.print(Printer::NameServer, 'N', (int) sid, (int) vmstudentmap[sid]);
 		}
-		// or
-		// _Accept(getMachineList)
+		or
+		_Accept(getMachineList) {}
 	}
 
 	prt.print(Printer::NameServer, 'F');
