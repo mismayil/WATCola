@@ -104,7 +104,7 @@ void Student::main(){
 
     if(!isUsed){
         _Select(g_card){
-            delete g_card;
+            delete g_card();
         }
     }
 
