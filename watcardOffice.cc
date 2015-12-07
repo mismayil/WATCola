@@ -48,6 +48,7 @@ WATCardOffice::Job *WATCardOffice::requestWork(){
 	Job *j = NULL;
 	if(!jobs.empty()){
 		j = jobs.front();
+		delete j;
 		jobs.pop();
 	}
 	return j;
@@ -62,6 +63,7 @@ void WATCardOffice::main(){
 	for(;;){
 		_Accept( ~WATCardOffice ){
 			while(!jobs.empty())
+
 				jobs.pop();
 
 			// notify all couriers to finish

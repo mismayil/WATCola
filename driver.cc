@@ -61,7 +61,7 @@ void uMain::main(){
           break;
         default:
           // check boundaries
-          if (argc > 4    ||
+          if (argc > 3    ||
               0 >= seed   || seed > INT_MAX )
           {
             break;
