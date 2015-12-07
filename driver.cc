@@ -81,7 +81,7 @@ void uMain::main(){
   processConfigFile( config_file.c_str() , cparms );
 
 
-  // initializzations
+  // initializations
   Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers );
 
   Bank bank(cparms.numStudents);
