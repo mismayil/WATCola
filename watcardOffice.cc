@@ -128,10 +128,12 @@ void WATCardOffice::Courier::main(){
 
         // 1 in 6 chance a courier loses a student’s WATCard
 		if(mprnGen(5) == 0){
-			
+			// the exception WATCardOffice::Lost is inserted into the future
+			j->result.exception(new Lost);
+
 			// the current WATCard is deleted
 			if(j->args.w_card != NULL){
-			   // delete j->args.w_card;
+				// delete j->args.w_card;
 				j->args.w_card = NULL;
 			}
 		}
