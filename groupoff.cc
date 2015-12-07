@@ -48,7 +48,7 @@ void Groupoff::main(){
 				g_cards[sid].delivery(w_card);
 
 				// A future gift-card is assigned only once, need to remove it
-				g_cards.erase(g_cards.begin() + sid );
+				// g_cards.erase(g_cards.begin() + sid );
 			}
 		}
 	}
