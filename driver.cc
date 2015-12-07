@@ -48,7 +48,7 @@ bool converter(string str, unsigned int &val){
 
 void uMain::main(){
 
-	unsigned int seed = 43890;
+	unsigned int seed = getpid();
 	string config_file = "soda.config";
 
   // Parse command line input parameters
@@ -84,7 +84,7 @@ void uMain::main(){
 
   // initializzations
   Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers );
-
+  
   Bank bank(cparms.numStudents);
 
   Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
