@@ -58,7 +58,6 @@ void uMain::main(){
           if(!converter(string(argv[2]), seed)) break;        // check for invalid parameter
         case 2:
           config_file = string(argv[1]);						// check for invalid parameter
-          break;
         default:
           // check boundaries
           if (argc > 3    ||
