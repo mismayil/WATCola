@@ -117,8 +117,6 @@ void WATCardOffice::Courier::main(){
 		// print start funds transfer
         prt.print(Printer::Courier, (int) id, 't',  j->args.student_id, j->args.amount);
 
-        // cout << "Courier id " << id << endl;
-
 		// sends a request through a courier to the bank
         bank.withdraw(j->args.student_id, j->args.amount);
 
@@ -132,7 +130,7 @@ void WATCardOffice::Courier::main(){
 
 			// the current WATCard is deleted
 			delete j->args.w_card;
-			// j->args.w_card = NULL;
+			j->args.w_card = NULL;
 		}
 		else{
 			// insert new WATCard into future
@@ -143,11 +141,7 @@ void WATCardOffice::Courier::main(){
 		prt.print(Printer::Courier, (int) id, 'T',  j->args.student_id, j->args.amount);
 
 		delete j;
-		// cout << "Courier id2 " << id << endl;
-
 	}
-
-	// cout << "Courier END " << endl;
 
 	// print finishing message
 	prt.print(Printer::Courier, (int) id, 'F');
