@@ -133,9 +133,8 @@ void WATCardOffice::Courier::main(){
 
 			// the current WATCard is deleted
 			if(j->args.w_card != NULL){
-			   WATCard *tmp = j->args.w_card;
-			   delete tmp;
-				// j->args.w_card = NULL;
+			   // delete j->args.w_card;
+				j->args.w_card = NULL;
 			}
 		}
 		else{
