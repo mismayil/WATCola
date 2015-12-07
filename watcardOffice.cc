@@ -61,8 +61,12 @@ void WATCardOffice::main(){
 
 	for(;;){
 		_Accept( ~WATCardOffice ){
-			// while(!jobs.empty())
-				// jobs.pop();
+			Job *j; 
+			while(!jobs.empty()){
+				j = jobs.front();
+			 	jobs.pop();
+			 	delete j;
+			}
 
 			jobs.push(NULL);
 
