@@ -61,8 +61,12 @@ void Student::main(){
                         isUsed = true;
 
                         // pay with GiftCard and reset
-                        v_machine->buy(flavour, *g_card());
-
+                        try{
+                            v_machine->buy(flavour, *g_card());
+                        }   
+                        catch(VendingMachine::Funds){
+                            cout << "GIFTCARD" << endl;
+                        }
                         // print GiftCard balance message
                         prt.print(Printer::Student, (int) id, 'G', g_card()->getBalance());
                         delete g_card();
@@ -89,7 +93,6 @@ void Student::main(){
     		}
     		catch(VendingMachine::Funds){
 
-                if (isUsed) cout << "GIFTCARD" << endl;
     			// student transfers the current vending-machine
     			// soda-cost plus $5 to their WATCard
     			unsigned int amount = v_machine->cost() + 5;
