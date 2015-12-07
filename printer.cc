@@ -83,11 +83,6 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
         flush(false);
     }
 
-    // first of all, need to check whether  is Finish
-    // if(state == 'F'){
-    //     flush(false);
-    // }
-
     // Add variables to the buffer for the given kind
     buffer[index].overwrite = true;
     buffer[index].state = state;
