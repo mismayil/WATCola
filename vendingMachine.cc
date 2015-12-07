@@ -56,13 +56,6 @@ void VendingMachine::main() {
     nameServer.VMregister(this);   // register with nameServer
 
     for (;;) {
-        // check if soda inventory needs restocking
-        unsigned int demand = 0;
-        for (unsigned int i = 0; i < NUM_FLAVOURS; i++) {
-            if (sodaInventory[i] == 0) demand++;
-        }
-
-        if (demand == NUM_FLAVOURS) isRestocked = false; // restocking needed
 
         _Accept(~VendingMachine) { break; }
         or
@@ -81,6 +74,7 @@ void VendingMachine::main() {
         }
         or
         _Accept(inventory) {
+            isRestocked = false;   // restocking started
             // print start reloading by truck message
             prt.print(Printer::Vending, (int) id, 'r');
         }
