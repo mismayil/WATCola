@@ -125,23 +125,23 @@ void Printer::print( Kind kind, unsigned int lid, char state, int value1, int va
 // and reset buffer
 void Printer::flush(bool isFinished){
     for (unsigned int i = 0; i < total; ++i) {
-       		if(buffer[i].overwrite){
-  				    cout << (char)buffer[i].state;
-              if(buffer[i].value1 != -1){
-              	cout << buffer[i].value1;
-              	if(buffer[i].value2 != -1){
-              		cout << ", " << buffer[i].value2;
-              	}
+        if(buffer[i].overwrite){
+  				  cout << (char)buffer[i].state;
+            if(buffer[i].value1 != -1){
+              cout << buffer[i].value1;
+              if(buffer[i].value2 != -1){
+              	cout << ", " << buffer[i].value2;
               }
+            }
 
-              //reset buffer
-              buffer[i].overwrite = false;
-       		}
-          else if(isFinished){
-              cout << "...";
-          }
-     		cout << "\t";
-     	  }
+            //reset buffer
+            buffer[i].overwrite = false;
+       	}
+        else if(isFinished){
+            cout << "...";
+        }
+     	  cout << "\t";
+    }
  	cout << "\n";
  }
 
