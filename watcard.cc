@@ -23,6 +23,4 @@ unsigned int WATCard::getBalance(){
 	return balance;
 }
 
-
-
 /* END */
