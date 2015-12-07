@@ -43,9 +43,11 @@ void Student::main(){
 	// print selected vending machine message
 	prt.print(Printer::Student, (int) id, 'V', v_machine->getId());
 
+        bool isUsed = false;
+        
 	for(unsigned int i = 0; i < bottleNum; i++){
 		yield(mprnGen(1,10));
-        bool isUsed = false;
+
     	for(;;){
     		try{
     			_Enable{
