@@ -78,14 +78,15 @@ void Printer::helper_print(Printer::Kind kind, char state, unsigned int lid, int
 
 	// Check overwrite condition
     // flush buffer if it is overwritten
-    if(buffer[index].overwrite){
+    // if it is Finish also flush 
+    if(buffer[index].overwrite || state == 'F'){
         flush(false);
     }
 
     // first of all, need to check whether  is Finish
-    if(state == 'F'){
-        flush(false);
-    }
+    // if(state == 'F'){
+    //     flush(false);
+    // }
 
     // Add variables to the buffer for the given kind
     buffer[index].overwrite = true;
